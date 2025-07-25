@@ -2,7 +2,9 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import LoginForm from './components/LoginForm.vue';
 
-const Dashboard = { template: '<div><h2>Dashboard</h2><p>Protected content goes here.</p></div>' };
+import UserPage from './components/UserPage.vue';
+import UserDetail from './components/UserDetail.vue';
+import UserDashboard from './components/UserDashboard.vue';
 
 Vue.use(Router);
 
@@ -16,8 +18,19 @@ export default new Router({
     },
     {
       path: '/dashboard',
-      name: 'Dashboard',
-      component: Dashboard,
+      name: 'UserDashboard',
+      component: UserDashboard,
+    },
+    {
+      path: '/users',
+      name: 'Users',
+      component: UserPage,
+    },
+    {
+      path: '/users/:id',
+      name: 'UserDetail',
+      component: UserDetail,
+      props: true,
     },
   ],
 }); 

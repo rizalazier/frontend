@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: 'LoginForm',
   data() {
@@ -29,20 +30,12 @@ export default {
       this.error = '';
       this.loading = true;
       try {
-        const response = await fetch('/api/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: this.email,
-            password: this.password,
-          }),
+        const response = await axios.post('/api/login', {
+          email: this.email,
+          password: this.password,
         });
-        const data = await response.json();
-        if (!response.ok) {
-          this.error = data.message || 'Login failed.';
-        } else if (data.token) {
+        const data = response.data;
+        if (data.token) {
           // Store JWT in localStorage
           localStorage.setItem('jwt', data.token);
           // Emit token to parent
@@ -51,7 +44,11 @@ export default {
           this.error = 'No token received.';
         }
       } catch (err) {
-        this.error = 'Network error. Please try again.';
+        if (err.response && err.response.data && err.response.data.message) {
+          this.error = err.response.data.message;
+        } else {
+          this.error = 'Network error. Please try again.';
+        }
       } finally {
         this.loading = false;
       }
