@@ -1,23 +1,23 @@
 <template>
-  <div class="user-detail">
-    <h2>User Detail</h2>
+  <div class="user-detail card p-4 shadow-sm mx-auto" style="max-width: 400px;">
+    <h2 class="mb-4">User Detail</h2>
     <div v-if="loading">Loading user...</div>
-    <div v-else-if="error" class="error">{{ error }}</div>
+    <div v-else-if="error" class="alert alert-danger">{{ error }}</div>
     <div v-else>
       <form @submit.prevent="updateUser">
-        <div>
+        <div class="form-group">
           <label>Name:</label>
-          <input v-model="form.name" required />
+          <input v-model="form.name" required class="form-control" />
         </div>
-        <div>
+        <div class="form-group">
           <label>Email:</label>
-          <input v-model="form.email" required type="email" />
+          <input v-model="form.email" required type="email" class="form-control" />
         </div>
-        <div>
+        <div class="form-group">
           <label>New Password:</label>
-          <input v-model="form.password" placeholder="Leave blank to keep current" type="password" />
+          <input v-model="form.password" placeholder="Leave blank to keep current" type="password" class="form-control" />
         </div>
-        <button type="submit">Update User</button>
+        <button type="submit" class="btn btn-success btn-block">Update User</button>
       </form>
     </div>
   </div>
@@ -84,25 +84,7 @@ export default {
 
 <style scoped>
 .user-detail {
-  max-width: 400px;
   margin: 2rem auto;
-  padding: 2rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
   background: #fff;
-}
-.user-detail label {
-  display: block;
-  margin-bottom: 0.25rem;
-}
-.user-detail input {
-  width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  box-sizing: border-box;
-}
-.error {
-  color: #d00;
-  margin-bottom: 1rem;
 }
 </style> 

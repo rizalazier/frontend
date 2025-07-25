@@ -1,8 +1,8 @@
 <template>
-  <div class="dashboard">
-    <h2>Dashboard</h2>
+  <div class="dashboard card p-4 shadow-sm mx-auto" style="max-width: 400px;">
+    <h2 class="mb-4">Dashboard</h2>
     <div v-if="loading">Loading user count...</div>
-    <div v-else-if="error" class="error">{{ error }}</div>
+    <div v-else-if="error" class="alert alert-danger">{{ error }}</div>
     <div v-else>
       <p>Total registered users: <strong>{{ userCount }}</strong></p>
     </div>
@@ -49,14 +49,7 @@ export default {
 
 <style scoped>
 .dashboard {
-  max-width: 400px;
   margin: 2rem auto;
-  padding: 2rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
   background: #fff;
-}
-.error {
-  color: #d00;
 }
 </style> 

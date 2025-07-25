@@ -1,34 +1,38 @@
 <template>
-  <div class="user-page">
-    <h2>User Management</h2>
+  <div class="user-page container mt-4">
+    <h2 class="mb-4">User Management</h2>
     <div v-if="loading">Loading users...</div>
-    <div v-else-if="error" class="error">{{ error }}</div>
+    <div v-else-if="error" class="alert alert-danger">{{ error }}</div>
     <div v-else>
-      <button @click="showCreateForm = true">Create New User</button>
-      <div v-if="showCreateForm" class="modal">
-        <h3>Create User</h3>
+      <button @click="showCreateForm = true" class="btn btn-primary mb-3">Create New User</button>
+      <div v-if="showCreateForm" class="card p-3 mb-3">
+        <h5>Create User</h5>
         <form @submit.prevent="createUser">
-          <input v-model="form.name" placeholder="Name" required />
-          <input v-model="form.email" placeholder="Email" required type="email" />
-          <input v-model="form.password" placeholder="Password" required type="password" />
-          <button type="submit">Create</button>
-          <button type="button" @click="resetForm">Cancel</button>
+          <div class="form-group">
+            <input v-model="form.name" placeholder="Name" required class="form-control mb-2" />
+            <input v-model="form.email" placeholder="Email" required type="email" class="form-control mb-2" />
+            <input v-model="form.password" placeholder="Password" required type="password" class="form-control mb-2" />
+          </div>
+          <button type="submit" class="btn btn-success mr-2">Create</button>
+          <button type="button" @click="resetForm" class="btn btn-secondary">Cancel</button>
         </form>
       </div>
-      <ul class="user-list">
-        <li v-for="user in users" :key="user._id">
+      <ul class="user-list list-group mb-3">
+        <li v-for="user in users" :key="user._id" class="list-group-item d-flex justify-content-between align-items-center">
           <span>{{ user.name }} ({{ user.email }})</span>
-          <button @click="editUser(user)">Edit</button>
+          <button @click="editUser(user)" class="btn btn-sm btn-info">Edit</button>
         </li>
       </ul>
-      <div v-if="showEditForm" class="modal">
-        <h3>Edit User</h3>
+      <div v-if="showEditForm" class="card p-3 mb-3">
+        <h5>Edit User</h5>
         <form @submit.prevent="updateUser">
-          <input v-model="form.name" placeholder="Name" required />
-          <input v-model="form.email" placeholder="Email" required type="email" />
-          <input v-model="form.password" placeholder="New Password (leave blank to keep)" type="password" />
-          <button type="submit">Update</button>
-          <button type="button" @click="resetForm">Cancel</button>
+          <div class="form-group">
+            <input v-model="form.name" placeholder="Name" required class="form-control mb-2" />
+            <input v-model="form.email" placeholder="Email" required type="email" class="form-control mb-2" />
+            <input v-model="form.password" placeholder="New Password (leave blank to keep)" type="password" class="form-control mb-2" />
+          </div>
+          <button type="submit" class="btn btn-success mr-2">Update</button>
+          <button type="button" @click="resetForm" class="btn btn-secondary">Cancel</button>
         </form>
       </div>
     </div>
@@ -124,32 +128,5 @@ export default {
 <style scoped>
 .user-page {
   max-width: 600px;
-  margin: 2rem auto;
-  padding: 2rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background: #fff;
-}
-.user-list {
-  list-style: none;
-  padding: 0;
-}
-.user-list li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #eee;
-}
-.modal {
-  background: #f9f9f9;
-  border: 1px solid #ccc;
-  padding: 1rem;
-  margin: 1rem 0;
-  border-radius: 6px;
-}
-.error {
-  color: #d00;
-  margin-bottom: 1rem;
 }
 </style> 

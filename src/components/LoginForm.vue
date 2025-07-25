@@ -1,15 +1,17 @@
 <template>
-  <form @submit.prevent="handleSubmit" class="login-form">
-    <div>
+  <form @submit.prevent="handleSubmit" class="login-form card p-4 shadow-sm mx-auto" style="max-width: 350px;">
+    <div class="form-group">
       <label for="email">Email:</label>
-      <input type="email" id="email" v-model="email" required placeholder="Enter your email" />
+      <input type="email" id="email" v-model="email" required placeholder="Enter your email" class="form-control" />
     </div>
-    <div>
+    <div class="form-group">
       <label for="password">Password:</label>
-      <input type="password" id="password" v-model="password" required placeholder="Enter your password" />
+      <input type="password" id="password" v-model="password" required placeholder="Enter your password" class="form-control" />
     </div>
-    <div v-if="error" class="error">{{ error }}</div>
-    <button type="submit" :disabled="loading">{{ loading ? 'Logging in...' : 'Login' }}</button>
+    <div v-if="error" class="alert alert-danger">{{ error }}</div>
+    <button type="submit" :disabled="loading" class="btn btn-success btn-block">
+      {{ loading ? 'Logging in...' : 'Login' }}
+    </button>
   </form>
 </template>
 
@@ -59,41 +61,7 @@ export default {
 
 <style scoped>
 .login-form {
-  max-width: 300px;
   margin: 2rem auto;
-  padding: 2rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
   background: #fff;
-}
-.login-form div {
-  margin-bottom: 1rem;
-}
-.login-form label {
-  display: block;
-  margin-bottom: 0.5rem;
-}
-.login-form input {
-  width: 100%;
-  padding: 0.5rem;
-  box-sizing: border-box;
-}
-.login-form .error {
-  color: #d00;
-  margin-bottom: 1rem;
-}
-.login-form button {
-  width: 100%;
-  padding: 0.75rem;
-  background: #42b983;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
-}
-.login-form button:disabled {
-  background: #aaa;
-  cursor: not-allowed;
 }
 </style> 
