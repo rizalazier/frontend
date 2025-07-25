@@ -49,7 +49,7 @@ export default {
       try {
         const token = localStorage.getItem('jwt');
         const userId = this.$route.params.id;
-        const response = await axios.get(`/api/users/${userId}`, {
+        const response = await axios.get(`http://localhost:3000/api/users/${userId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         this.form.name = response.data.name;
@@ -69,7 +69,7 @@ export default {
           email: this.form.email,
         };
         if (this.form.password) updateData.password = this.form.password;
-        await axios.put(`/api/users/${userId}`, updateData, {
+        await axios.put(`http://localhost:3000/api/users/${userId}`, updateData, {
           headers: { Authorization: `Bearer ${token}` },
         });
         alert('User updated successfully!');

@@ -32,7 +32,7 @@ export default {
       this.error = '';
       this.loading = true;
       try {
-        const response = await axios.post('/api/login', {
+        const response = await axios.post('http://localhost:3000/api/login', {
           email: this.email,
           password: this.password,
         });

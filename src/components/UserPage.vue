@@ -10,6 +10,7 @@
         <form @submit.prevent="createUser">
           <div class="form-group">
             <input v-model="form.name" placeholder="Name" required class="form-control mb-2" />
+            <input v-model="form.username" placeholder="Username" required class="form-control mb-2" />
             <input v-model="form.email" placeholder="Email" required type="email" class="form-control mb-2" />
             <input v-model="form.password" placeholder="Password" required type="password" class="form-control mb-2" />
           </div>
@@ -28,6 +29,7 @@
         <form @submit.prevent="updateUser">
           <div class="form-group">
             <input v-model="form.name" placeholder="Name" required class="form-control mb-2" />
+            <input v-model="form.username" placeholder="Username" required class="form-control mb-2" />
             <input v-model="form.email" placeholder="Email" required type="email" class="form-control mb-2" />
             <input v-model="form.password" placeholder="New Password (leave blank to keep)" type="password" class="form-control mb-2" />
           </div>
@@ -54,6 +56,7 @@ export default {
       form: {
         _id: '',
         name: '',
+        username: '',
         email: '',
         password: '',
       },
@@ -68,7 +71,7 @@ export default {
       this.error = '';
       try {
         const token = localStorage.getItem('jwt');
-        const response = await axios.get('/api/users', {
+        const response = await axios.get('http://localhost:3000/api/users', {
           headers: { Authorization: `Bearer ${token}` },
         });
         this.users = response.data;
@@ -81,8 +84,9 @@ export default {
     async createUser() {
       try {
         const token = localStorage.getItem('jwt');
-        await axios.post('/api/users', {
+        await axios.post('http://localhost:3000/api/users', {
           name: this.form.name,
+          username: this.form.username,
           email: this.form.email,
           password: this.form.password,
         }, {
@@ -96,6 +100,7 @@ export default {
     },
     editUser(user) {
       this.form = { ...user, password: '' };
+      if (!this.form.username) this.form.username = '';
       this.showEditForm = true;
       this.showCreateForm = false;
     },
@@ -104,10 +109,11 @@ export default {
         const token = localStorage.getItem('jwt');
         const updateData = {
           name: this.form.name,
+          username: this.form.username,
           email: this.form.email,
         };
         if (this.form.password) updateData.password = this.form.password;
-        await axios.put(`/api/users/${this.form._id}`, updateData, {
+        await axios.put(`http://localhost:3000/api/users/${this.form._id}`, updateData, {
           headers: { Authorization: `Bearer ${token}` },
         });
         this.resetForm();
@@ -117,7 +123,7 @@ export default {
       }
     },
     resetForm() {
-      this.form = { _id: '', name: '', email: '', password: '' };
+      this.form = { _id: '', name: '', username: '', email: '', password: '' };
       this.showCreateForm = false;
       this.showEditForm = false;
     },
